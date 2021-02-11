@@ -1,30 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { addComment } from "../../../services/comment";
 
 import "./index.css";
 
 const AddComment = () => {
+  const [comment, setComment] = useState("");
+
   const handleSubmit = (value) => {
     console.log("FINAL COMMENT VALUE", value);
     addComment({
       text: value,
       author: "Sabuhi Nazarov",
       createdDate: new Date(),
-    });
+    })
+      .then(() => setComment(""))
+      .catch((err) => alert(err.message));
   };
 
   const handleKeyUp = (e) => {
     if (e) {
       switch (e.keyCode) {
         case 13:
-          if (e.target && e.target.value) {
-            handleSubmit(e.target.value);
+          if (comment) {
+            handleSubmit(comment);
           } else alert("You need to write some comment");
           break;
 
         case 27:
-          if (e.target && e.target.value) e.target.value = "";
+          if (comment) setComment("");
           break;
 
         default:
@@ -35,7 +39,12 @@ const AddComment = () => {
 
   return (
     <div className="add-comment">
-      <input placeholder="Type your comment..." onKeyUp={handleKeyUp} />
+      <input
+        placeholder="Type your comment..."
+        onKeyUp={handleKeyUp}
+        onChange={(e) => setComment(e.target.value)}
+        value={comment}
+      />
     </div>
   );
 };
