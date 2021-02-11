@@ -15,7 +15,7 @@ const AddComment = ({ requestAPIComments }) => {
     addComment({
       text: value,
       author: "Sabuhi Nazarov",
-      createdDate: new Date(),
+      createdDate: new Date().getTime(),
     })
       .then(() => {
         setComment("");
