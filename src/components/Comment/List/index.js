@@ -1,14 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 import CommentsListItem from "../Item";
+import { requestAPIComments } from "../../../store/actions";
 
-const CommentsList = ({ comments }) => {
+const CommentsList = ({ requestAPIComments, comments }) => {
+  useEffect(() => {
+    requestAPIComments();
+  }, []);
+
+  useEffect(() => {
+    console.log("WHAT IS COMMENTS", comments);
+  }, [comments]);
+
   return (
     <div className="comments-list">
-      {comments.map((comment, i) => (
-        <CommentsListItem comment={comment} key={i} />
-      ))}
+      {comments.length ? (
+        comments.map((comment, i) => (
+          <CommentsListItem comment={comment} key={i} />
+        ))
+      ) : (
+        <div>No comments found</div>
+      )}
     </div>
   );
 };
-export default CommentsList;
+
+const mapStateToProps = (state) => ({ comments: state.comments });
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ requestAPIComments }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommentsList);

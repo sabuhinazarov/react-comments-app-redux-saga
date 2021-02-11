@@ -1,15 +1,35 @@
 import React from "react";
 
+import { addComment } from "../../../services/comment";
+
 import "./index.css";
 
-const AddComment = ({ onSubmit }) => {
-  const handleKeyUp = (e) => {
-    console.log("EVENT", e, e.keyCode, e.target.value);
+const AddComment = () => {
+  const handleSubmit = (value) => {
+    console.log("FINAL COMMENT VALUE", value);
+    addComment({
+      text: value,
+      author: "Sabuhi Nazarov",
+      createdDate: new Date(),
+    });
+  };
 
-    if (e && e.keyCode === 13) {
-      if (e.target && e.target.value) {
-        onSubmit(e.target.value);
-      } else alert("You need to write some comment");
+  const handleKeyUp = (e) => {
+    if (e) {
+      switch (e.keyCode) {
+        case 13:
+          if (e.target && e.target.value) {
+            handleSubmit(e.target.value);
+          } else alert("You need to write some comment");
+          break;
+
+        case 27:
+          if (e.target && e.target.value) e.target.value = "";
+          break;
+
+        default:
+          break;
+      }
     }
   };
 
