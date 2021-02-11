@@ -11,7 +11,6 @@ const AddComment = ({ requestAPIComments }) => {
   const [comment, setComment] = useState("");
 
   const handleSubmit = (value) => {
-    console.log("FINAL COMMENT VALUE", value);
     addComment({
       text: value,
       author: "Sabuhi Nazarov",

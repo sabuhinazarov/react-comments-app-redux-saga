@@ -10,10 +10,6 @@ const CommentsList = ({ requestAPIComments, comments }) => {
     requestAPIComments();
   }, []);
 
-  useEffect(() => {
-    console.log("WHAT IS COMMENTS", comments);
-  }, [comments]);
-
   return (
     <div className="comments-list">
       {comments.length ? (
