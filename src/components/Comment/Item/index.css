@@ -1,0 +1,17 @@
+.comment-item {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 0.75rem;
+}
+
+.comment-item .content {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.comment-item .meta {
+  display: flex;
+  justify-content: space-between;
+}

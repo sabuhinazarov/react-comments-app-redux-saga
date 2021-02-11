@@ -1,0 +1,6 @@
+.add-comment input {
+  display: block;
+  width: 100%;
+  padding: 1rem 2rem;
+  border: 2px solid #ddd;
+}
