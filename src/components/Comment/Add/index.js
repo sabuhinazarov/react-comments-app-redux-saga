@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 import { addComment } from "../../../services/comment";
+import { requestAPIComments } from "../../../store/actions";
 
 import "./index.css";
 
-const AddComment = () => {
+const AddComment = ({ requestAPIComments }) => {
   const [comment, setComment] = useState("");
 
   const handleSubmit = (value) => {
@@ -14,7 +17,10 @@ const AddComment = () => {
       author: "Sabuhi Nazarov",
       createdDate: new Date(),
     })
-      .then(() => setComment(""))
+      .then(() => {
+        setComment("");
+        requestAPIComments();
+      })
       .catch((err) => alert(err.message));
   };
 
@@ -49,4 +55,9 @@ const AddComment = () => {
   );
 };
 
-export default AddComment;
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ requestAPIComments }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddComment);
